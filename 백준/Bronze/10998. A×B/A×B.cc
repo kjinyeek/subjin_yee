@@ -1,12 +1,9 @@
 #include <stdio.h>
+
 int main()
 {
-	int N, M;
-	scanf("%d %d", &N, &M);
-	
-	printf("%d", N * M);
-	
-	
-	
-	return 0;
+    int a, b;
+    scanf("%d %d", &a, &b);
+    printf("%d", a*b);
+    return 0;
 }
