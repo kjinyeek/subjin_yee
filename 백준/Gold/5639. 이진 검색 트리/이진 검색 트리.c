@@ -1,40 +1,62 @@
 #include <stdio.h>
-int D[10001];
-int point[10001][2];//[0]왼쪽D값 [1]오른쪽D값 
-void f(int now)
+#include <stdlib.h>
+
+typedef struct node {
+	int value;
+	struct node *left;
+	struct node *right;
+}node;
+
+void f(node *f_now)
 {
-	if(D[now] == 0 || now > 10000) return;
-	
-	f(point[now][0]);
-	f(point[now][1]);
-	printf("%d\n",D[now]);
+	if(f_now -> left != NULL) f(f_now -> left);
+	if(f_now -> right != NULL) f(f_now -> right);
+		
+	printf("%d\n", f_now->value);
 }
 int main()
 {
-	int k;
-	for(int i = 1; scanf("%d", &D[i]) != EOF; i++){
-		k = 1;
-		while(k<=10000){
-			if(D[i] == D[k]){
-				break;
-			}
-			if(D[i] < D[k]){
-				if(point[k][0] == 0){
-					point[k][0] = i;
+	int N;
+	node *now;
+	node *new_node;
+	
+	scanf("%d", &N);
+	node *first = (node*)malloc(sizeof(node));
+	first-> value = N;
+	first-> left = NULL;
+	first-> right = NULL;
+	while(scanf("%d", &N) != EOF){
+		now = first;
+		while(1){
+			if(N < now -> value){//left
+				if(now -> left == NULL){
+					new_node = (node*)malloc(sizeof(node));
+					now -> left = new_node;
+					new_node->value = N;
+					new_node->left = NULL;
+					new_node->right = NULL;
 					break;
 				}
-				k = point[k][0];
+				else{
+					now = now -> left;
+				}
 			}
 			else{
-				if(point[k][1] == 0){
-					point[k][1] = i;
+				if(now -> right == NULL){
+					new_node = (node*)malloc(sizeof(node));
+					now -> right = new_node;
+					new_node->value = N;
+					new_node->left = NULL;
+					new_node->right = NULL;
 					break;
 				}
-				k = point[k][1];
+				else{
+					now = now -> right;
+				}
 			}
 		}
 	}
 	
-	f(1);
+	f(first);
 	return 0;
 }
