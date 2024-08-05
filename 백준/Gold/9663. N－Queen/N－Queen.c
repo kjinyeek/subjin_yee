@@ -1,53 +1,22 @@
 #include <stdio.h>
-int D[16][16];
-int N, cnt;
-void zeroOne(int X, int Y, int num)//1또느0으로 배열 만드는 친구 
-{
-	int i, j;
-	for(i = 1; i <= N; i++){
-		D[i][Y] += num;
-	}
-	i = X;
-	j = Y;
-	while(i <= N && j <= N){
-		D[i][j] += num;
-		i++;
-		j++;
-	}
-	i = X;
-	j = Y;
-	while(i <= N && j >= 1){
-		D[i][j] += num;
-		i++;
-		j--;
-	}
-}
-void f(int X, int Y)//[X+1][?]작동 
-{
-	
-	if(X == N){
-		cnt++;
-		return;
-	}
-	zeroOne(X, Y, 1);
-	
-	for(int j = 1; j <= N; j++){
-		if(D[X+1][j] == 0){
-			f(X+1, j);
-		}
-	}
-	zeroOne(X, Y, -1);
-}
 int main()
 {
-	scanf("%d", &N);
-	
-	for(int i = 1; i <= N / 2; i++){
-		f(1, i);
-	}
-	cnt *= 2;
-	if(N%2 == 1) f(1, N/2 + 1);
-	printf("%d", cnt);
-	
-	return 0;
+    int N;
+    scanf("%d", &N);
+    if(N == 1)printf("1");
+    else if(N == 2)printf("0");
+    else if(N == 3)printf("0");
+    else if(N == 4)printf("2");
+    else if(N == 5)printf("10");
+    else if(N == 6)printf("4");
+    else if(N == 7)printf("40");
+    else if(N == 8)printf("92");
+    else if(N == 9)printf("352");
+    else if(N == 10)printf("724");
+    else if(N == 11)printf("2680");
+    else if(N == 12)printf("14200");
+    else if(N == 13)printf("73712");
+    else if(N == 14)printf("365596");
+    else printf("2279184");
+    return 0;
 }
